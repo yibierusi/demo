@@ -109,7 +109,7 @@ public class SkillController implements Initializable {
             return;
         }
 
-        Entry entry = new Entry(x, y, red, green, blue, current);
+        Entry entry = new Entry(x, y, red, green, blue, 50, 100, current);
         keys.put(current, entry);
 
         switch (current) {

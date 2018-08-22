@@ -59,14 +59,14 @@ public class Util {
      *
      * @return
      */
-    public static boolean pressKey(Robot robot, Entry entry, int ddCode, int delay) {
+    public static boolean pressKey(Robot robot, Entry entry, int ddCode) {
         if (isEquals(robot, entry)) {
             //robot.keyPress(keyCode);
             DdXoft.INSTANCE.DD_key(ddCode, 1);
-            robot.delay(delay);
+            robot.delay(entry.press);
             //robot.keyRelease(keyCode);
             DdXoft.INSTANCE.DD_key(ddCode, 2);
-            robot.delay(delay);
+            robot.delay(entry.release);
             return true;
         }
         return false;

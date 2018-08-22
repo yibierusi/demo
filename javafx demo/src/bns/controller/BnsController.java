@@ -42,7 +42,7 @@ public class BnsController implements Initializable {
      */
     public void startAndStop() {
         if (keyThread == null) {
-            keyThread = KeyThread.getInstance();
+            keyThread = new KeyThread();
             keyThread.start();
             scriptControlButton.setText(Constant.STOP_SCRIPT.v());
             System.out.println("脚本启动中...");

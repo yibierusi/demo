@@ -29,7 +29,7 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                KeyThread.getInstance().kill();
+                KeyThread.kill();
                 System.out.println("线程已被强制杀死");
             }
         });

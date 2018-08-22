@@ -16,15 +16,10 @@ import java.util.Map;
 public class KeyThread extends Thread {
     private Robot robot;
     private Map<String, Entry> keys;
-    private boolean state;
+    private static boolean state;
 
     private boolean isPressKey; //是否按下某键
     private boolean isBuffExit; //闪电buff是否存在
-
-    private static final KeyThread keyThread = new KeyThread();
-    public static KeyThread getInstance() {
-        return keyThread;
-    }
 
     public KeyThread() {
         init();
@@ -47,12 +42,12 @@ public class KeyThread extends Thread {
         }
         System.out.println("脚本已启动。");
         while (state) {
-            isPressKey = Util.pressKey(robot, keys.get("sf"), DDKeyEvent.F, 100);
+            isPressKey = Util.pressKey(robot, keys.get("sf"), DDKeyEvent.F);
             if (isPressKey) {
                 System.out.println("释放觉醒雷炎闪");
                 continue;
             }
-            isPressKey = Util.pressKey(robot, keys.get("f"), DDKeyEvent.F, 100);
+            isPressKey = Util.pressKey(robot, keys.get("f"), DDKeyEvent.F);
             if (isPressKey) {
                 System.out.println("释放雷炎闪");
                 continue;
@@ -60,18 +55,18 @@ public class KeyThread extends Thread {
             isBuffExit = Util.isEquals(robot, keys.get("buff"));
             if (isBuffExit) {
                 System.out.println("雷电buff存在");
-                isPressKey = Util.pressKey(robot, keys.get("r"), DDKeyEvent.R, 100);
+                isPressKey = Util.pressKey(robot, keys.get("r"), DDKeyEvent.R);
                 if (isPressKey) {
                     System.out.println("释放拔剑");
                     continue;
                 }
-                isPressKey = Util.pressKey(robot, keys.get("sr"), DDKeyEvent.R, 100);
+                isPressKey = Util.pressKey(robot, keys.get("sr"), DDKeyEvent.R);
                 if (isPressKey) {
                     System.out.println("释放觉醒拔剑");
                     continue;
                 }
             } else {
-                isPressKey = Util.pressKey(robot, keys.get("x"), DDKeyEvent.X, 100);
+                isPressKey = Util.pressKey(robot, keys.get("x"), DDKeyEvent.X);
                 if (isPressKey) {
                     System.out.println("释放雷鸣斩");
                     continue;
@@ -81,7 +76,7 @@ public class KeyThread extends Thread {
         System.out.println("脚本已停止。");
     }
 
-    public void kill() {
-        this.state = false;
+    public static void kill() {
+        state = false;
     }
 }

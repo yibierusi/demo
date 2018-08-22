@@ -14,17 +14,21 @@ public class Entry {
     public int r;
     public int g;
     public int b;
+    public int press;
+    public int release;
     public String key;
 
     public Entry() {
     }
 
-    public Entry(int x, int y, int r, int g, int b, String key) {
+    public Entry(int x, int y, int r, int g, int b, int press, int release, String key) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.g = g;
         this.b = b;
+        this.press = press;
+        this.release = release;
         this.key = key;
     }
 
@@ -43,7 +47,7 @@ public class Entry {
 
     public void setFull(String str) {
         String[] array = str.split(Constant.COLOR_SPLIT.v(), -1);
-        if (array.length != 5) {
+        if (array.length != 7) {
             System.out.println("实体类初始化出错");
         }
         this.x = Integer.parseInt(array[0]);
@@ -51,12 +55,15 @@ public class Entry {
         this.r = Integer.parseInt(array[2]);
         this.g = Integer.parseInt(array[3]);
         this.b = Integer.parseInt(array[4]);
+        this.press = Integer.parseInt(array[5]);
+        this.release = Integer.parseInt(array[6]);
     }
 
     @Override
     public String toString() {
         return key + Constant.CONFIG_SPLIT.v()
                 + x + Constant.COLOR_SPLIT.v() + y + Constant.COLOR_SPLIT.v()
-                + r + Constant.COLOR_SPLIT.v() + g + Constant.COLOR_SPLIT.v() + b;
+                + r + Constant.COLOR_SPLIT.v() + g + Constant.COLOR_SPLIT.v() + b + Constant.COLOR_SPLIT.v()
+                + press + Constant.COLOR_SPLIT.v() + release;
     }
 }
