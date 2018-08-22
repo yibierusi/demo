@@ -3,15 +3,21 @@ package bns.dll;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
-public interface DdXoft extends Library{
-        DdXoft INSTANCE = (DdXoft) Native.loadLibrary("ddxoft64", DdXoft.class);
-        //64位JAVA调用*64.dll, 32位调用*32.dll 。与系统本身位数无关。、
-        int DD_mov(int x, int y);//绝对移动
-        int DD_movR(int dx, int dy);//相对移动
-        int DD_btn(int btn);//鼠标
-        int DD_whl(int whl); //滑轮
-        int DD_key(int ddcode, int flag);//键盘
-        int DD_str(String s);//字符串
+public interface DdXoft extends Library {
+    DdXoft INSTANCE = (DdXoft) Native.loadLibrary("ddxoft64", DdXoft.class);
+
+    //64位JAVA调用*64.dll, 32位调用*32.dll 。与系统本身位数无关。、
+    int DD_mov(int x, int y);//绝对移动
+
+    int DD_movR(int dx, int dy);//相对移动
+
+    int DD_btn(int btn);//鼠标
+
+    int DD_whl(int whl); //滑轮
+
+    int DD_key(int ddcode, int flag);//键盘
+
+    int DD_str(String s);//字符串
 }
 
 //      1. DD_btn(参数)

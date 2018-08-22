@@ -5,8 +5,6 @@ import bns.comm.Entry;
 import bns.util.Util;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +20,11 @@ public class KeyThread extends Thread {
 
     private boolean isPressKey; //是否按下某键
     private boolean isBuffExit; //闪电buff是否存在
+
+    private static final KeyThread keyThread = new KeyThread();
+    public static KeyThread getInstance() {
+        return keyThread;
+    }
 
     public KeyThread() {
         init();

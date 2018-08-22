@@ -31,17 +31,18 @@ public class BnsController implements Initializable {
      * 通过快捷键启动或者停止脚本
      */
     @FXML
-    public void isStart(KeyEvent event) {
+    public void action(KeyEvent event) {
         if (event.getCode().getName().equals("F11")) {
             startAndStop();
         }
     }
+
     /**
      * 启动或者停止脚本
      */
-    public void startAndStop(){
-        if (keyThread == null){
-            keyThread = new KeyThread();
+    public void startAndStop() {
+        if (keyThread == null) {
+            keyThread = KeyThread.getInstance();
             keyThread.start();
             scriptControlButton.setText(Constant.STOP_SCRIPT.v());
             System.out.println("脚本启动中...");

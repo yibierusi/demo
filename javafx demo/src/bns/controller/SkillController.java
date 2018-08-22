@@ -1,6 +1,5 @@
 package bns.controller;
 
-import bns.comm.Constant;
 import bns.comm.Entry;
 import bns.util.Util;
 import javafx.fxml.FXML;
@@ -105,12 +104,12 @@ public class SkillController implements Initializable {
      * 填充保存某个按键数据
      */
     public void keyDataHandle(int x, int y, int red, int green, int blue) {
-        if (red > 255 || green > 255 || blue > 255){
+        if (red > 255 || green > 255 || blue > 255) {
             System.out.println("颜色格式不正确");
             return;
         }
 
-        Entry entry = new Entry(x,y,red,green,blue,current);
+        Entry entry = new Entry(x, y, red, green, blue, current);
         keys.put(current, entry);
 
         switch (current) {
@@ -159,7 +158,7 @@ public class SkillController implements Initializable {
      */
     public void fillData(TextField x, TextField y, TextField c, Label s, String skill) {
         Entry entry = keys.get(skill);
-        if (entry == null){
+        if (entry == null) {
             return;
         }
         x.setText(entry.x + "");

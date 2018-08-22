@@ -30,11 +30,11 @@ public class Entry {
 
     public Entry(String str) {
         str = str.trim();
-        if (Util.isEmpty(str)){
+        if (Util.isEmpty(str)) {
             System.out.println("实体类参数不能为空");
         }
         String[] array = str.split(Constant.CONFIG_SPLIT.v(), -1);
-        if (array.length != 2){
+        if (array.length != 2) {
             System.out.println("实体类初始化出错");
         }
         this.key = array[0];
@@ -43,7 +43,7 @@ public class Entry {
 
     public void setFull(String str) {
         String[] array = str.split(Constant.COLOR_SPLIT.v(), -1);
-        if (array.length != 5){
+        if (array.length != 5) {
             System.out.println("实体类初始化出错");
         }
         this.x = Integer.parseInt(array[0]);

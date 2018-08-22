@@ -7,9 +7,7 @@ import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +42,7 @@ public class Util {
      * 判断某点颜色是否相同
      */
     public static boolean isEquals(Robot robot, Entry entry) {
-        java.awt.Color color = null;
+        java.awt.Color color;
         try {
             color = robot.getPixelColor(entry.x, entry.y);
         } catch (Exception e) {

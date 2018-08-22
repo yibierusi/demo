@@ -13,11 +13,11 @@ public enum Constant {
     X(4, "x"),
     Y(5, "y"),
     C(6, "c"),
-    BNS(7,"/bns/fxml/bns.fxml"),
-    SKILL(8,"/bns/fxml/skill.fxml"),
-    JAVA(9,"/bns/img/java.png"),
-    START_SCRIPT(10,"1.启动脚本(F11)"),
-    STOP_SCRIPT(11,"1.停止脚本(F11)");
+    BNS(7, "/bns/fxml/bns.fxml"),
+    SKILL(8, "/bns/fxml/skill.fxml"),
+    JAVA(9, "/bns/img/java.png"),
+    START_SCRIPT(10, "1.启动脚本(F11)"),
+    STOP_SCRIPT(11, "1.停止脚本(F11)");
 
     Constant(int k, String v) {
         this.k = k;
