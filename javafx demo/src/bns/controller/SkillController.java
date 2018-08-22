@@ -1,6 +1,7 @@
 package bns.controller;
 
-import bns.config.Constant;
+import bns.comm.Constant;
+import bns.comm.Entry;
 import bns.util.Util;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -76,7 +77,7 @@ public class SkillController implements Initializable {
     private Label buffs;
 
 
-    private Map<String, String> keyMap;
+    private Map<String, Entry> keys;
 
 
     /**
@@ -89,12 +90,10 @@ public class SkillController implements Initializable {
         if (event.isControlDown()) {
             try {
                 point = MouseInfo.getPointerInfo().getLocation();
-                String x = point.x + "";
-                String y = point.y + "";
                 java.awt.Color color = robot.getPixelColor(point.x, point.y);
                 if (current != null && !"".equals(current)) {
                     System.out.println("保存按键信息中...");
-                    keyDataHandle(x, y, color.getRed(), color.getGreen(), color.getBlue());
+                    keyDataHandle(point.x, point.y, color.getRed(), color.getGreen(), color.getBlue());
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -105,19 +104,15 @@ public class SkillController implements Initializable {
     /**
      * 填充保存某个按键数据
      */
-    public void keyDataHandle(String x, String y, int red, int green, int blue) {
-        if (!Util.isFullNumber(x) || !Util.isFullNumber(y)){
-            System.out.println("x,y 坐标格式不正确");
-            return;
-        }
+    public void keyDataHandle(int x, int y, int red, int green, int blue) {
         if (red > 255 || green > 255 || blue > 255){
             System.out.println("颜色格式不正确");
             return;
         }
-        String c = red + Constant.COLOR_SPLIT.v() + green + Constant.COLOR_SPLIT.v() + blue;
-        keyMap.put(current + Constant.X.v(), x);
-        keyMap.put(current + Constant.Y.v(), y);
-        keyMap.put(current + Constant.C.v(), c);
+
+        Entry entry = new Entry(x,y,red,green,blue,current);
+        keys.put(current, entry);
+
         switch (current) {
             case "f":
                 fillData(fx, fy, fc, fs, "f");
@@ -141,7 +136,7 @@ public class SkillController implements Initializable {
                 return;
         }
 
-        Util.savaKeyMap(keyMap);
+        Util.savaKeyMap(keys);
     }
 
 
@@ -163,9 +158,13 @@ public class SkillController implements Initializable {
      * 填充数据
      */
     public void fillData(TextField x, TextField y, TextField c, Label s, String skill) {
-        x.setText(keyMap.get(skill + Constant.X.v()));
-        y.setText(keyMap.get(skill + Constant.Y.v()));
-        String rgbStr = keyMap.get(skill + Constant.C.v());
+        Entry entry = keys.get(skill);
+        if (entry == null){
+            return;
+        }
+        x.setText(entry.x + "");
+        y.setText(entry.y + "");
+        String rgbStr = entry.r + "," + entry.g + "," + entry.b;
         c.setText(rgbStr);
         s.setTextFill(Util.getColorByRgbStr(rgbStr));
     }
@@ -224,7 +223,7 @@ public class SkillController implements Initializable {
         System.out.println("正在初始化...");
         init();
         System.out.println("正在读取配置...");
-        keyMap = Util.loadingConfigFiles();
+        keys = Util.loadingConfigFiles();
         System.out.println("正在填充数据...");
         fillFullData();
     }

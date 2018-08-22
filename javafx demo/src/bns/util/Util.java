@@ -1,12 +1,15 @@
 package bns.util;
 
-import bns.config.Constant;
-import javafx.scene.input.KeyEvent;
+import bns.comm.Constant;
+import bns.comm.Entry;
+import bns.dll.DdXoft;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,17 +23,18 @@ public class Util {
     /**
      * 判断字符串是否是纯数字
      */
-    public static boolean isFullNumber(String str){
-        if (isEmpty(str)){
+    public static boolean isFullNumber(String str) {
+        if (isEmpty(str)) {
             return false;
         }
         return str.matches("[0-9]+");
     }
+
     /**
      * 判断是否为空
      */
-    public static boolean isEmpty(String str){
-        if (str == null || "".equals(str)){
+    public static boolean isEmpty(String str) {
+        if (str == null || "".equals(str)) {
             return true;
         }
         return false;
@@ -39,32 +43,31 @@ public class Util {
     /**
      * 判断某点颜色是否相同
      */
-    public static boolean isEquals(Robot robot, String xs, String ys, String cs) {
-        if (isEmpty(cs))
-            return false;
+    public static boolean isEquals(Robot robot, Entry entry) {
         java.awt.Color color = null;
         try {
-            int x = Integer.parseInt(xs);
-            int y = Integer.parseInt(ys);
-            color = robot.getPixelColor(x, y);
-        }catch (Exception e){
+            color = robot.getPixelColor(entry.x, entry.y);
+        } catch (Exception e) {
             return false;
         }
-        String rgbStr = getRgbStrByColor(color);
-        return rgbStr.equals(cs);
+        if (color.getRed() == entry.r && color.getGreen() == entry.g && color.getBlue() == entry.b) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * 判断某点颜色是否相同 相同则按下
      *
-     * @param xs，ys,cs s : string
      * @return
      */
-    public static boolean pressKey(Robot robot, String xs, String ys, String cs, int keyCode, int delay) {
-        if (isEquals(robot, xs, ys, cs)) {
-            robot.keyPress(keyCode);
+    public static boolean pressKey(Robot robot, Entry entry, int ddCode, int delay) {
+        if (isEquals(robot, entry)) {
+            //robot.keyPress(keyCode);
+            DdXoft.INSTANCE.DD_key(ddCode, 1);
             robot.delay(delay);
-            robot.keyRelease(keyCode);
+            //robot.keyRelease(keyCode);
+            DdXoft.INSTANCE.DD_key(ddCode, 2);
             robot.delay(delay);
             return true;
         }
@@ -101,8 +104,8 @@ public class Util {
     /**
      * 读取配置文件
      */
-    public static Map<String, String> loadingConfigFiles() {
-        Map<String, String> keyMap = new HashMap();
+    public static Map<String, Entry> loadingConfigFiles() {
+        Map<String, Entry> keys = new HashMap<>();
         InputStreamReader isr = null;
         BufferedReader br = null;
         try {
@@ -110,7 +113,8 @@ public class Util {
             String line = "";
             br = new BufferedReader(isr);
             while ((line = br.readLine()) != null) {
-                keyMap.put(line.split(Constant.CONFIG_SPLIT.v(), -1)[0], line.split(Constant.CONFIG_SPLIT.v(), -1)[1]);
+                Entry entry = new Entry(line);
+                keys.put(entry.key, entry);
             }
         } catch (Exception e) {
             System.out.println("未找到配置文件:" + Constant.CONFIG_PATH.v());
@@ -127,7 +131,7 @@ public class Util {
                 e.printStackTrace();
             }
         }
-        return keyMap;
+        return keys;
     }
 
 
@@ -148,7 +152,7 @@ public class Util {
     /**
      * 保存数据
      */
-    public static void savaKeyMap(Map<String, String> keyMap) {
+    public static void savaKeyMap(Map<String, Entry> keys) {
         PrintStream ps = null;        // 声明打印流对象
         try {
             ps = new PrintStream(new FileOutputStream(new File(Constant.CONFIG_PATH.v())));
@@ -156,14 +160,11 @@ public class Util {
             e.printStackTrace();
         }
 
-        for (Map.Entry<String, String> entry : keyMap.entrySet()) {
-            ps.println(entry.getKey() + Constant.CONFIG_SPLIT.v() + entry.getValue());
+        for (Map.Entry<String, Entry> entry : keys.entrySet()) {
+            ps.println(entry.getValue().toString());
         }
         ps.close();
         System.out.println("数据保存完成");
 
-//        KeyThread kt = new KeyThread();
-//        kt.init(robot,keyMap);
-//        kt.start();
     }
 }

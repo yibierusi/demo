@@ -1,4 +1,4 @@
-package bns.config;
+package bns.comm;
 
 /**
  * @Auther: zhouhy

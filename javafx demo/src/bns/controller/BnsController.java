@@ -1,9 +1,8 @@
 package bns.controller;
 
 import bns.application.SkillApplication;
-import bns.config.Constant;
+import bns.comm.Constant;
 import bns.thread.KeyThread;
-import bns.util.Util;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,13 +10,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class BnsController implements Initializable {
     private KeyThread keyThread;
-
-    private Map<String, String> keyMap;
 
     @FXML
     private Button scriptControlButton;
@@ -45,8 +41,7 @@ public class BnsController implements Initializable {
      */
     public void startAndStop(){
         if (keyThread == null){
-            keyMap = Util.loadingConfigFiles();
-            keyThread = new KeyThread(keyMap);
+            keyThread = new KeyThread();
             keyThread.start();
             scriptControlButton.setText(Constant.STOP_SCRIPT.v());
             System.out.println("脚本启动中...");

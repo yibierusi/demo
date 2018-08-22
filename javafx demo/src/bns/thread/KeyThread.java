@@ -1,9 +1,12 @@
 package bns.thread;
 
+import bns.comm.DDKeyEvent;
+import bns.comm.Entry;
 import bns.util.Util;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,21 +17,21 @@ import java.util.Map;
  */
 public class KeyThread extends Thread {
     private Robot robot;
-    private Map<String, String> keyMap;
+    private Map<String, Entry> keys;
     private boolean state;
 
     private boolean isPressKey; //是否按下某键
     private boolean isBuffExit; //闪电buff是否存在
 
-    public KeyThread(Map<String, String> keyMap) {
+    public KeyThread() {
         init();
-        this.keyMap = keyMap;
+        this.keys = Util.loadingConfigFiles();
     }
 
     public void init() {
         try {
             this.robot = new Robot();
-        }catch (AWTException e){
+        } catch (AWTException e) {
             e.printStackTrace();
         }
         this.state = true;
@@ -36,37 +39,36 @@ public class KeyThread extends Thread {
 
     @Override
     public void run() {
-        if (keyMap == null) {
+        if (keys == null || keys.size() == 0) {
             System.out.println("keyMap 为空");
         }
         System.out.println("脚本已启动。");
         while (state) {
-            isPressKey = Util.pressKey(robot, keyMap.get("sfx"), keyMap.get("sfy"), keyMap.get("sfc"), KeyEvent.VK_F, 100);
+            isPressKey = Util.pressKey(robot, keys.get("sf"), DDKeyEvent.F, 100);
             if (isPressKey) {
                 System.out.println("释放觉醒雷炎闪");
                 continue;
             }
-            isPressKey = Util.pressKey(robot, keyMap.get("fx"), keyMap.get("fy"), keyMap.get("fc"), KeyEvent.VK_F, 100);
+            isPressKey = Util.pressKey(robot, keys.get("f"), DDKeyEvent.F, 100);
             if (isPressKey) {
                 System.out.println("释放雷炎闪");
                 continue;
             }
-            isBuffExit = Util.isEquals(robot,keyMap.get("buffx"), keyMap.get("buffy"), keyMap.get("buffc"));
-            if (isBuffExit){
+            isBuffExit = Util.isEquals(robot, keys.get("buff"));
+            if (isBuffExit) {
                 System.out.println("雷电buff存在");
-                isPressKey = Util.pressKey(robot, keyMap.get("rx"), keyMap.get("ry"), keyMap.get("rc"), KeyEvent.VK_R, 100);
+                isPressKey = Util.pressKey(robot, keys.get("r"), DDKeyEvent.R, 100);
                 if (isPressKey) {
                     System.out.println("释放拔剑");
                     continue;
                 }
-                isPressKey = Util.pressKey(robot, keyMap.get("srx"), keyMap.get("sry"), keyMap.get("src"), KeyEvent.VK_R, 100);
+                isPressKey = Util.pressKey(robot, keys.get("sr"), DDKeyEvent.R, 100);
                 if (isPressKey) {
                     System.out.println("释放觉醒拔剑");
                     continue;
                 }
-
-            }else {
-                isPressKey = Util.pressKey(robot, keyMap.get("xx"), keyMap.get("xy"), keyMap.get("xc"), KeyEvent.VK_X, 100);
+            } else {
+                isPressKey = Util.pressKey(robot, keys.get("x"), DDKeyEvent.X, 100);
                 if (isPressKey) {
                     System.out.println("释放雷鸣斩");
                     continue;
