@@ -2,7 +2,7 @@ package bns.util;
 
 import bns.comm.Constant;
 import bns.comm.Entry;
-import bns.dll.DdXoft;
+import bns.comm.DdXoft;
 import javafx.scene.paint.Color;
 
 import java.awt.*;

@@ -1,4 +1,4 @@
-package bns.dll;
+package bns.comm;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;

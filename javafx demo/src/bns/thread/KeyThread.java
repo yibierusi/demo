@@ -66,6 +66,16 @@ public class KeyThread extends Thread {
                     continue;
                 }
             } else {
+                isPressKey = Util.pressKey(robot, keys.get("c"), DDKeyEvent.C);
+                if (isPressKey) {
+                    System.out.println("释放天隙流光");
+                    continue;
+                }
+                isPressKey = Util.pressKey(robot, keys.get("v"), DDKeyEvent.V);
+                if (isPressKey) {
+                    System.out.println("释放残月斩");
+                    continue;
+                }
                 isPressKey = Util.pressKey(robot, keys.get("x"), DDKeyEvent.X);
                 if (isPressKey) {
                     System.out.println("释放雷鸣斩");
