@@ -4,10 +4,12 @@ import bns.comm.Entry;
 import bns.util.Util;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.net.URL;
@@ -96,6 +98,9 @@ public class SkillController implements Initializable {
 
     private Map<String, Entry> keys;
 
+    public Button saveButton;
+    public Button saveAndReturnButton;
+
 
     /**
      * 判断是否按下
@@ -161,8 +166,9 @@ public class SkillController implements Initializable {
 
         Util.savaKeyMap(keys);
     }
+
     @FXML
-    public void save(){
+    public void save() {
         getNewestKeys();
         Util.savaKeyMap(keys);
     }
@@ -170,27 +176,29 @@ public class SkillController implements Initializable {
     /**
      * 获取最新的数据
      */
-    public void getNewestKeys(){
-        Map<String,Entry> newKeys = new HashMap<>();
-        newKeys.put("f",Util.getEntry("f",fx,fy,fc));
-        newKeys.put("sf",Util.getEntry("sf",sfx,sfy,sfc));
-        newKeys.put("r",Util.getEntry("r",rx,ry,rc));
-        newKeys.put("sr",Util.getEntry("sr",srx,sry,src));
-        newKeys.put("x",Util.getEntry("x",xx,xy,xc));
-        newKeys.put("buff",Util.getEntry("buff",buffx,buffy,buffc));
-        newKeys.put("c",Util.getEntry("c",cx,cy,cc));
-        newKeys.put("v",Util.getEntry("v",vx,vy,vc));
+    public void getNewestKeys() {
+        Map<String, Entry> newKeys = new HashMap<>();
+        newKeys.put("f", Util.getEntry("f", fx, fy, fc));
+        newKeys.put("sf", Util.getEntry("sf", sfx, sfy, sfc));
+        newKeys.put("r", Util.getEntry("r", rx, ry, rc));
+        newKeys.put("sr", Util.getEntry("sr", srx, sry, src));
+        newKeys.put("x", Util.getEntry("x", xx, xy, xc));
+        newKeys.put("buff", Util.getEntry("buff", buffx, buffy, buffc));
+        newKeys.put("c", Util.getEntry("c", cx, cy, cc));
+        newKeys.put("v", Util.getEntry("v", vx, vy, vc));
         keys = newKeys;
     }
-
 
 
     /**
      * 保存配置并返回
      */
-    public void saveAndReturn(){
+    public void saveAndReturn() {
         getNewestKeys();
         Util.savaKeyMap(keys);
+        //关闭事件
+        Stage stage = (Stage) saveAndReturnButton.getScene().getWindow();
+        stage.close();
     }
 
     /**
@@ -293,4 +301,5 @@ public class SkillController implements Initializable {
         System.out.println("正在填充数据...");
         fillFullData();
     }
+
 }

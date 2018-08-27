@@ -73,8 +73,8 @@
       <Button fx:id="getv" layoutX="230.0" layoutY="495.0" mnemonicParsing="false" onMouseClicked="#getv" text="残月斩" />
 
 
-      <Button layoutX="15.0" layoutY="555.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="195.0" onMouseClicked="#save" text="保存" />
-      <Button layoutX="230.0" layoutY="555.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="195.0" onMouseClicked="#saveAndReturn" text="保存/返回" />
+      <Button fx:id="saveButton" layoutX="15.0" layoutY="555.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="195.0" onMouseClicked="#save" text="保存" />
+      <Button fx:id="saveAndReturnButton" layoutX="230.0" layoutY="555.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="195.0" onMouseClicked="#saveAndReturn" text="保存/返回" />
 
 
    </children>
