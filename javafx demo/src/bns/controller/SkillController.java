@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -75,6 +76,23 @@ public class SkillController implements Initializable {
     @FXML
     private Label buffs;
 
+    @FXML
+    private TextField cx;
+    @FXML
+    private TextField cy;
+    @FXML
+    private TextField cc;
+    @FXML
+    private Label cs;
+
+    @FXML
+    private TextField vx;
+    @FXML
+    private TextField vy;
+    @FXML
+    private TextField vc;
+    @FXML
+    private Label vs;
 
     private Map<String, Entry> keys;
 
@@ -131,13 +149,49 @@ public class SkillController implements Initializable {
             case "buff":
                 fillData(buffx, buffy, buffc, buffs, "buff");
                 break;
+            case "c":
+                fillData(cx, cy, cc, cs, "c");
+                break;
+            case "v":
+                fillData(vx, vy, vc, vs, "v");
+                break;
             default:
                 return;
         }
 
         Util.savaKeyMap(keys);
     }
+    @FXML
+    public void save(){
+        getNewestKeys();
+        Util.savaKeyMap(keys);
+    }
 
+    /**
+     * 获取最新的数据
+     */
+    public void getNewestKeys(){
+        Map<String,Entry> newKeys = new HashMap<>();
+        newKeys.put("f",Util.getEntry("f",fx,fy,fc));
+        newKeys.put("sf",Util.getEntry("sf",sfx,sfy,sfc));
+        newKeys.put("r",Util.getEntry("r",rx,ry,rc));
+        newKeys.put("sr",Util.getEntry("sr",srx,sry,src));
+        newKeys.put("x",Util.getEntry("x",xx,xy,xc));
+        newKeys.put("buff",Util.getEntry("buff",buffx,buffy,buffc));
+        newKeys.put("c",Util.getEntry("c",cx,cy,cc));
+        newKeys.put("v",Util.getEntry("v",vx,vy,vc));
+        keys = newKeys;
+    }
+
+
+
+    /**
+     * 保存配置并返回
+     */
+    public void saveAndReturn(){
+        getNewestKeys();
+        Util.savaKeyMap(keys);
+    }
 
     /**
      * 界面填充数据
@@ -151,6 +205,9 @@ public class SkillController implements Initializable {
 
         fillData(xx, xy, xc, xs, "x");
         fillData(buffx, buffy, buffc, buffs, "buff");
+
+        fillData(cx, cy, cc, cs, "c");
+        fillData(vx, vy, vc, vs, "v");
     }
 
     /**
@@ -202,6 +259,16 @@ public class SkillController implements Initializable {
     @FXML
     public void getbuff(MouseEvent event) {
         current = "buff";
+    }
+
+    @FXML
+    public void getc(MouseEvent event) {
+        current = "c";
+    }
+
+    @FXML
+    public void getv(MouseEvent event) {
+        current = "v";
     }
 
 

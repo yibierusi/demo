@@ -41,19 +41,24 @@ public class KeyThread extends Thread {
             System.out.println("keyMap 为空");
         }
         System.out.println("脚本已启动。");
+        //线程是否存活
         while (state) {
+            //有雷炎闪
             isPressKey = Util.pressKey(robot, keys.get("sf"), DDKeyEvent.F);
             if (isPressKey) {
                 System.out.println("释放觉醒雷炎闪");
+                isPressKey = Util.pressKey(robot, keys.get("r"), DDKeyEvent.R);
                 continue;
             }
             isPressKey = Util.pressKey(robot, keys.get("f"), DDKeyEvent.F);
             if (isPressKey) {
                 System.out.println("释放雷炎闪");
+                isPressKey = Util.pressKey(robot, keys.get("r"), DDKeyEvent.R);
                 continue;
             }
             isBuffExit = Util.isEquals(robot, keys.get("buff"));
             if (isBuffExit) {
+                //有buff 无雷炎闪
                 System.out.println("雷电buff存在");
                 isPressKey = Util.pressKey(robot, keys.get("r"), DDKeyEvent.R);
                 if (isPressKey) {
@@ -66,7 +71,8 @@ public class KeyThread extends Thread {
                     continue;
                 }
             } else {
-                isPressKey = Util.pressKey(robot, keys.get("c"), DDKeyEvent.C);
+                //无buff 无雷炎闪
+                isPressKey = Util.doubleC(robot, keys.get("c"), DDKeyEvent.C);
                 if (isPressKey) {
                     System.out.println("释放天隙流光");
                     continue;
@@ -82,6 +88,8 @@ public class KeyThread extends Thread {
                     continue;
                 }
             }
+            //无buff 无雷炎闪 无姿态切换
+            Util.pressKey(robot, keys.get("r"), DDKeyEvent.R);
         }
         System.out.println("脚本已停止。");
     }

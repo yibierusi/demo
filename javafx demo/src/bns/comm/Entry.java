@@ -19,6 +19,8 @@ public class Entry {
     public String key;
 
     public Entry() {
+        press = 50;
+        release = 100;
     }
 
     public Entry(int x, int y, int r, int g, int b, int press, int release, String key) {

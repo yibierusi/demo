@@ -1,11 +1,13 @@
 package bns.util;
 
 import bns.comm.Constant;
+import bns.comm.DDKeyEvent;
 import bns.comm.Entry;
 import bns.comm.DdXoft;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
+import java.awt.Robot;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +72,16 @@ public class Util {
             return true;
         }
         return false;
+    }
+
+    /**
+     *  双C
+     */
+    public static boolean doubleC(Robot robot, Entry entry, int ddCode) {
+        boolean isPressKey = Util.pressKey(robot, entry, DDKeyEvent.C);
+        Util.pressKey(robot, entry, DDKeyEvent.F);
+        Util.pressKey(robot, entry, DDKeyEvent.C);
+        return isPressKey;
     }
 
     /**
@@ -164,5 +176,17 @@ public class Util {
         ps.close();
         System.out.println("数据保存完成");
 
+    }
+
+    public static Entry getEntry(String key, TextField x, TextField y, TextField c){
+        Entry entry = new Entry();
+        entry.x = Integer.parseInt(x.getText());
+        entry.y = Integer.parseInt(y.getText());
+        String array[] = c.getText().split(Constant.COLOR_SPLIT.v(),-1);
+        entry.r = Integer.parseInt(array[0]);
+        entry.g = Integer.parseInt(array[1]);
+        entry.b = Integer.parseInt(array[2]);
+        entry.key = key;
+        return entry;
     }
 }

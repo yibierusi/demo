@@ -28,7 +28,7 @@ public class SkillApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource(Constant.SKILL.v()));
         primaryStage.setTitle("Skill");
-        primaryStage.setScene(new Scene(root, 435, 435));
+        primaryStage.setScene(new Scene(root, 435, 600));
         primaryStage.getIcons().add(new Image(
                 SkillApplication.class.getResourceAsStream(Constant.JAVA.v())));
         primaryStage.setAlwaysOnTop(true);//窗口总是在最前面
